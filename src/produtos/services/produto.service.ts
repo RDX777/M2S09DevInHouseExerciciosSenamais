@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { v4 as uuidv4 } from "uuid";
 
 import { ProdutoEntity } from "../entities/produto.entity";
+import { Categoria } from "../utils/categoria.enum";
 
 @Injectable()
 export class ProdutoService {
@@ -41,6 +42,12 @@ export class ProdutoService {
   coletaPorId(uuid: string): ProdutoEntity {
     return this.produtos.find((produto) => {
       return produto.uuid === uuid;
+    });
+  }
+
+  coletaPorCategoria(categoria: Categoria): ProdutoEntity[] {
+    return this.produtos.filter((produto) => {
+      return produto.categoria == parseInt(Categoria[categoria]);
     });
   }
 }

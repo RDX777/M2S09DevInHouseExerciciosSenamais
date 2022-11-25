@@ -1,3 +1,4 @@
+import { IsEnum } from "class-validator";
 import { Categoria } from "../utils/categoria.enum";
 
 export class ProdutoEntity {
@@ -6,5 +7,6 @@ export class ProdutoEntity {
   valor: number;
   descricao: string;
   disponivel: boolean;
+  @IsEnum(Categoria)
   categoria: Categoria;
 }
