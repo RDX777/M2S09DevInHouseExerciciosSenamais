@@ -8,6 +8,9 @@ import { Categoria } from "../utils/categoria.enum";
 
 export class CriaProdutoDto {
   @IsString()
+  readonly id: string;
+
+  @IsString()
   @IsNotEmpty()
   readonly nome: string;
 
