@@ -4,6 +4,7 @@ import { TransformResponseInterceptor } from "./core/http/transform-response-int
 import { ConfigModule } from "@nestjs/config";
 
 import { ProdutoModule } from "./produtos/produto.module";
+import { CarrinhoModule } from "./carrinho/carrinho.module";
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ProdutoModule } from "./produtos/produto.module";
       isGlobal: true,
     }),
     ProdutoModule,
+    CarrinhoModule,
   ],
   controllers: [],
   providers: [
