@@ -5,10 +5,11 @@ import {
   IsString,
 } from "class-validator";
 import { Categoria } from "../utils/categoria.enum";
+import { LocalizaUuidDto } from "./localiza-uuid.dto";
 
 export class CriaProdutoDto {
   @IsString()
-  readonly id: string;
+  readonly uuid: string;
 
   @IsString()
   @IsNotEmpty()
