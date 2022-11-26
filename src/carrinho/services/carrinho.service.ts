@@ -1,8 +1,13 @@
 import { Injectable } from "@nestjs/common";
+import { DescricaoProdutosDto } from "src/produtos/dtos/descricao-produtos.dto";
+import { ProdutoService } from "src/produtos/services/produto.service";
 import { v4 as uuidv4 } from "uuid";
+import { CarrinhoDto } from "../dtos/carrinho.dto";
 
 @Injectable()
 export class CarrinhoService {
+  constructor(private produtoService: ProdutoService) { }
+
   private carrinho = [
     {
       uuid: "75ff0ee8-a91f-43a4-b363-75cea0683ccc",
@@ -14,4 +19,21 @@ export class CarrinhoService {
       ],
     },
   ];
+
+  coletaProdutosCarrinho(uuid: string) {
+    const carrinho: CarrinhoDto = this.carrinho.find((carrinhoUsuario) => {
+      return carrinhoUsuario.uuid === uuid;
+    });
+
+    const produtos: DescricaoProdutosDto[] = carrinho.produtos.map((item) => {
+      const produto: DescricaoProdutosDto =
+        this.produtoService.coletaPorId(item);
+      return {
+        nome: produto.nome,
+        valor: produto.valor,
+      };
+    });
+
+    return produtos;
+  }
 }
