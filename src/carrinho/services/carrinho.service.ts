@@ -61,4 +61,29 @@ export class CarrinhoService {
     });
     return novoCarrinho;
   }
+
+  deletaProdutosCarrinho(uuid: string, uuidProdutos: any) {
+    const novoCarrinho = this.carrinho.map((carrinhoUsuario) => {
+      if (carrinhoUsuario.uuid === uuid) {
+        const produtos = this.removeItens(
+          uuidProdutos.produtos,
+          carrinhoUsuario.produtos,
+        );
+        carrinhoUsuario.produtos = produtos;
+        carrinhoUsuario.valor = this.calculaTotal(uuid);
+        return carrinhoUsuario;
+      }
+    });
+    return novoCarrinho;
+  }
+
+  private removeItens(
+    produtosRemover: Array<string>,
+    produtosAtuais: Array<string>,
+  ): Array<string> {
+    produtosRemover.forEach((produtoRemover) => {
+      produtosAtuais.splice(produtosAtuais.indexOf(produtoRemover), 1);
+    });
+    return produtosAtuais;
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body } from "@nestjs/common";
+import { Controller, Get, Post, Param, Body, Delete } from "@nestjs/common";
 import { DescricaoProdutosDto } from "src/produtos/dtos/descricao-produtos.dto";
 import { LocalizaProdutoUuidDto } from "src/produtos/dtos/localiza-produto-uuid.dto";
 
@@ -17,7 +17,7 @@ export class CarrinhoController {
     return this.carrinhoService.coletaProdutosCarrinho(params.uuid);
   }
 
-  @Post(":uuid")
+  @Post("produtos/:uuid")
   adicionaProdutosCarrinho(
     @Param() params: LocalizaCarrinhoUuidDto,
     @Body() uuidProdutos: LocalizaProdutoUuidDto[],
@@ -26,5 +26,13 @@ export class CarrinhoController {
       params.uuid,
       uuidProdutos,
     );
+  }
+
+  @Delete("produtos/:uuid")
+  deletaProdutosCarrinho(
+    @Param() params: LocalizaCarrinhoUuidDto,
+    @Body() uuidProdutos: LocalizaProdutoUuidDto[],
+  ) {
+    this.carrinhoService.deletaProdutosCarrinho(params.uuid, uuidProdutos);
   }
 }
