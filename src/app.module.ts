@@ -5,6 +5,7 @@ import { ConfigModule } from "@nestjs/config";
 
 import { ProdutoModule } from "./produtos/produto.module";
 import { CarrinhoModule } from "./carrinho/carrinho.module";
+import { CompraModule } from "./compras/compra.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CarrinhoModule } from "./carrinho/carrinho.module";
     }),
     ProdutoModule,
     CarrinhoModule,
+    CompraModule,
   ],
   controllers: [],
   providers: [

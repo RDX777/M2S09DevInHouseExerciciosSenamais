@@ -4,7 +4,7 @@ export class NestResponseBuilder {
   private response: NestResponse = {
     status: 200,
     headers: {},
-    body: {},
+    body: null,
   };
 
   public withStatus(status: number) {
