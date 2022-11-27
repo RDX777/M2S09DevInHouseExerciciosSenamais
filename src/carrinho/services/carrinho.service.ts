@@ -20,10 +20,14 @@ export class CarrinhoService {
     },
   ];
 
-  coletaProdutosCarrinho(uuid: string) {
-    const carrinho: CarrinhoDto = this.carrinho.find((carrinhoUsuario) => {
+  private localizaCarrinho(uuid: string): CarrinhoDto {
+    return this.carrinho.find((carrinhoUsuario) => {
       return carrinhoUsuario.uuid === uuid;
     });
+  }
+
+  coletaProdutosCarrinho(uuid: string) {
+    const carrinho: CarrinhoDto = this.localizaCarrinho(uuid);
 
     const produtos: DescricaoProdutosDto[] = carrinho.produtos.map((item) => {
       const produto: DescricaoProdutosDto =
@@ -35,5 +39,26 @@ export class CarrinhoService {
     });
 
     return produtos;
+  }
+
+  private calculaTotal(uuid: string) {
+    const carrinho = this.coletaProdutosCarrinho(uuid);
+    let valor = 0;
+    Object.keys(carrinho).forEach((elemento) => {
+      valor = valor + parseFloat(carrinho[elemento].valor);
+    });
+    return valor;
+  }
+
+  adicionaProdutosCarrinho(uuid: string, uuidProdutos: any) {
+    const novoCarrinho = this.carrinho.map((carrinhoUsuario) => {
+      if (carrinhoUsuario.uuid === uuid) {
+        const produtos = carrinhoUsuario.produtos.concat(uuidProdutos.produtos);
+        carrinhoUsuario.produtos = produtos;
+        carrinhoUsuario.valor = this.calculaTotal(uuid);
+        return carrinhoUsuario;
+      }
+    });
+    return novoCarrinho;
   }
 }

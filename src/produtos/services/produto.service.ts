@@ -31,6 +31,14 @@ export class ProdutoService {
       disponivel: true,
       categoria: 1,
     },
+    {
+      uuid: "688e797e-1558-4b79-ba14-ef9cb5faasdw",
+      nome: "Nome produto 4",
+      valor: 1.12,
+      descricao: "Descrição produto 4",
+      disponivel: true,
+      categoria: 1,
+    },
   ];
 
   coletaTodosProdutos(): ProdutoEntity[] {
